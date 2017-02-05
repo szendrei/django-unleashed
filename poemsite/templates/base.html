@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+	<meta chartset="UTF-8">
+	<title>{% block title %}Poem website{% endblock %}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lt IE 9]>
+	     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	     <![endif]-->
+    </head>
+
+    <body>
+	<nav>
+	    <h3><a href="{% url 'categories_category_list' %}">Categories</a></h3>
+	    <h3><a href="{% url 'poems_poem_list' %}">Poems</a></h3>
+	</nav>
+
+	<div>
+	    <header>
+		<h1>Poems, everybody! Poems!</h1>
+	    </header>
+	    <main>
+		{% block content %}
+		This is the default content.
+		{% endblock %}
+	    </main>
+	</div>
+
+	<footer>
+	    <p>&copy; 2017 Dora Szendrei</p>
+	    <p><i>Made for the "Poem website" excersie 
+		in the Django Unleashed book.</i></p>
+	</footer>
+    </body>
+</html>

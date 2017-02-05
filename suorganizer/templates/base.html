@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+	<meta chartset="UTF-8">
+	<title>{% block title %}Startup Organizer{% endblock %}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lt IE 9]>
+	     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+    </head>
+
+    <body>
+
+	{% if messages %}
+	<div>
+	    <div>
+		<ul>
+		    {% for message in messages %}
+		    {% if message.tags %}
+		    <li class="{{ message.tags }}">
+		    {% else %}
+		    <li>
+		    {% endif %}
+			{{ message }}</li>
+		    {% endfor %}
+	       </ul>
+	    </div>
+	</div>
+	{% endif %}
+
+	<nav>
+	    <ul>
+		<li><a href="{% url 'blog_post_list' %}">Blog</a></li>
+		<li><a href="{% url 'organizer_startup_list' %}">Startups</a></li>
+		<li><a href="{% url 'organizer_tag_list' %}">Tags</a></li>
+		<li><a href="{% url 'contact' %}">Contact</a></li>
+	    </ul>
+	</nav>
+
+	<div><!-- container -->
+	    <header>
+		<h1>Startup Organizer</h1>
+	    </header>
+	    <main>
+		{% block content %}
+		This is default content!
+		{% endblock %}
+	    </main>
+	</div><!-- container -->
+
+	<footer><p>&copy; 2017 <a href="http://karcolat.hu">Dora Szendrei</a></p>
+	    <p>Created for <a href="https://Django-Unleashed.com/">Django Unleashed</a></p>
+	</footer>
+
+    </body>
+
+</html>

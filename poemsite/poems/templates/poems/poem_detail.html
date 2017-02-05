@@ -1,0 +1,19 @@
+{% extends parent_template|default:"poems/poems_base.html" %}
+
+{% block title %}{{ block.super }} - {{ poem.title|title }}{% endblock %}
+
+{% block content %}
+<article>
+<h3>{{ poem.title|title }}</h3>
+<p>Auhtor: {{ poem.author }}</p>
+<p>Written on <time datetime="{{ poem.pub_date|date:'Y-m-d' }}">
+    {{ poem.pub_date|date:"Y. b. d." }}</time></p>
+<p>In category <a href="{{ poem.category.get_absolute_url }}">
+    {{ poem.category|title }}</a></p>
+{{ poem.text|linebreaks }}
+</article>
+<ul>
+    <li><a href="{{ poem.get_update_url }}">Edit poem</a></li>
+    <li><a href="{{ poem.get_delete_url }}">Delete poem</a></li>
+</ul>
+{% endblock %}

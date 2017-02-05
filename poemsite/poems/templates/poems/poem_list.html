@@ -1,0 +1,28 @@
+{% extends parent_template|default:"poems/poems_base.html" %}
+
+{% block title %}{{ block.super }} - All poems{% endblock %}
+
+{% block content %}
+<h2>All Poems</h2>
+<p>If you want to add a new poem, first select a category 
+    <a href="{% url 'categories_category_list' %}">here.</a></p>
+{% for poem in poem_list %}
+<ul>
+    <li><p><a href="{{ poem.get_absolute_url }}">{{ poem.author }}: 
+	{{ poem.title|title }}</a></p>
+	<p>Written on 
+	    <time datetime="{{ poem.pub_date|date:'Y-m-d' }}">
+		{{ poem.pub_date|date:'Y. m. d' }}</time></p>
+	<p>In category 
+	    <a href="{{ poem.category.get_absolute_url }}">
+		{{ poem.category }}</a></p>
+    </li>
+    <ul>
+	<li><a href="{{ poem.get_update_url }}">Edit poem</a></li>
+	<li><a href="{{ poem.get_delete_url }}">Delete poem</a></li>
+    </ul>
+</ul>
+{% empty %}
+<p><em>There are no poems yet!</em>
+{% endfor %}
+{% endblock %}

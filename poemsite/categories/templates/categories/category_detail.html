@@ -1,0 +1,28 @@
+{% extends parent_template|default:"categories/categories_base.html" %}
+
+{% block title %}{{ block.super }} - {{ category.name|title }}{% endblock %}
+
+{% block content %}
+<h2>{{ category.name|title }}</h2>
+<ul>
+    <li><a href="{{ category.get_update_url }}">Edit category</a></li>
+    <li><a href="{{ category.get_delete_url }}">Delete category</a></li>
+</ul>
+<div>
+    <p><a href="{% url 'poems_poem_create' %}">Add new poem</a></p>
+</div>
+{% if category.poems.all %}
+<section>
+    <h3>Poems</h3>
+    <p>{{ category.poems.count }} 
+	poem{{ category.poems.count|pluralize }} in this category:</p>
+    <ul>
+	{% for poem in category.poems.all %}
+	<li><a href="{{ poem.get_absolute_url }}">{{ poem.author }}: {{ poem.title }}</a></li>
+	{% endfor %}
+    </ul>
+</section>
+{% else %}
+<p><em>No poems in this category yet!</em></p>
+{% endif %}
+{% endblock %}
