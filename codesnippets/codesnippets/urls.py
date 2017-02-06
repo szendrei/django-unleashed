@@ -18,10 +18,13 @@ from django.contrib import admin
 
 from snippets import urls as snippet_urls
 from snippets.views import index_view
+from contact import urls as contact_urls
 
 urlpatterns = [
     url(r'^$', index_view, name='snippets_index'),
-    url(r'^snippets/', include(snippet_urls)),
     url(r'^admin/', admin.site.urls),
+    url(r'^contact/', include(contact_urls)),
+    url(r'^snippets/', include(snippet_urls)),
+
 ]
 

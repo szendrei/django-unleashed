@@ -1,0 +1,17 @@
+{% extends parent_template|default:'contact/contact_base.html' %}
+
+{% block title %}
+{{ block.super }} - Contact Me!
+{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+	<form action="{% url 'contact' %}" method="post">
+	    {% csrf_token %}
+	    {{ form.as_p }}
+	    <button type="submit">Contact Me!</button>
+	</form>
+    </div>
+</div>
+{% endblock %}
