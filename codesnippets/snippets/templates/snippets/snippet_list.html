@@ -1,0 +1,24 @@
+{% extends parent_template|default:"snippets/snippets_base.html" %}
+
+{% block title %}{{ block.super }} - All code snippets{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+<h2>All code snippets</h2>
+<div>
+    <ul>
+	{% for snippet in snippet_list %}
+	<li><a href="{{ snippet.get_absolute_url }}">
+	    {{ snippet.title|default:"no title"|title }}</a>
+	language: {{ snippet.language }}</li>
+	<ul>
+	    <li><a href="{{ snippet.get_update_url }}">Edit snippet</a></li>
+	    <li><a href="{{ snippet.get_delete_url }}">Delete snippet</a></li>
+	</ul>
+	{% empty %}
+	<li><em>No snippets yet.</em></li>
+	{% endfor %} 
+    </ul>
+</div>
+{% endblock %}

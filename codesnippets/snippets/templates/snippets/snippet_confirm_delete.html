@@ -1,0 +1,16 @@
+{% extends parent_template|default:"snippets/snippets_base.html" %}
+
+{% block title %}{{ block.super }} - Delete code snippet{%endblock %}
+
+{% block content %}
+<div>
+    <div>
+	<form action="{{ snippet.get_delete_url }}" method="post">
+	    {% csrf_token %}
+	    {{ form.as_p }}
+	    <a href="{{ snippet.get_absolute_url }}">Cancel</a>
+	    <button type="submit">Delete Snippet</button>
+	</form>
+    </div>
+</div>
+{% endblock %}

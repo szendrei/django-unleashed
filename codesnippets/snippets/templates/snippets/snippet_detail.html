@@ -1,0 +1,24 @@
+{% extends parent_template|default:'snippets/snippets_base.html' %}
+
+{% block title %}{{ block.super }} - {{ snippet.title|title }}{% endblock %}
+
+{% block content %}
+<article>
+    <h3>
+	{% if snippet.title %}
+	{{ snippet.title }}
+	{% else %}
+	{{ snippet.language|title }} snippet by {{ snippet.author }}
+	{% endif %}
+    </h3>
+<p>created at <time datetime="{{ snippet.create_date|date:'c' }}">
+    {{ snippet.create_date|date:'Y. b. d. G:i:s' }}</time><br>
+    in <b>{{ snippet.language }}</b>
+    by <i>{{ snippet.author }}</i></p>
+<ul>
+    <li><a href="{{ snippet.get_update_url }}">Edit this snippet</a></li>
+    <li><a href="{{ snippet.get_delete_url }}">Delete this snippet</a></li>
+</ul>
+<pre>{{ snippet.code|linebreaks }}</pre>
+</article>
+{% endblock %}

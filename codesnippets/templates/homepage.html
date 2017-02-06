@@ -1,0 +1,19 @@
+{% extends parent_template|default:"base.html" %}
+
+{% block content %}
+<article>
+    <p>Welcome to the Code Snippets code sharing site! Fell free to create any
+	code in any programming languages (not just Python) and share it with 
+	everyone in the world!</p>
+</article>
+<section>
+    <p>Here are the five most recent snippets:</p>
+    <ul>
+	{% for snippet in snippets_list %}
+	<li><a href="">{{ snippet }}</a></li>
+	{% empty %}
+	<li><em>No snippets yet.</em></li>
+	{% endfor %}
+    </ul>
+</section>
+{% endblock %}

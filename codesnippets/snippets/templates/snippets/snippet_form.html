@@ -1,0 +1,17 @@
+{% extends parent_template|default:"snippets/snippets_base.html" %}
+
+{% block title %}{{ block.super }} - Create New Snippet{% endblock %}
+
+{% block create %}{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+	<form action ="{% url 'snippets_snippet_create' %}" method="post">
+	    {% csrf_token %}
+	    {{ form.as_p }}
+	    <button type="submit">Create new code snippet</button>
+	</form>
+    </div>
+</div>
+{% endblock %}

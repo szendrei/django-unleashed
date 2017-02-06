@@ -1,0 +1,15 @@
+{% extends parent_template|default:"snippets/snippets_base.html" %}
+
+{% block title %}{{ block.super }} - Update code snippet{%endblock %}
+
+{% block content %}
+<div>
+    <div>
+	<form action="{{ snippet.get_update_url }}" method="post">
+	    {% csrf_token %}
+	    {{ form.as_p }}
+	    <button type="submit">Update Snippet</button>
+	</form>
+    </div>
+</div>
+{% endblock %}
