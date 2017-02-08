@@ -28,6 +28,10 @@ class Snippet(models.Model):
     def get_absolute_url(self):
         return reverse('snippets_snippet_detail',kwargs={'slug':self.slug})
 
+    def get_category_url(self):
+        return reverse('snippets_snippet_category_list',
+                       kwargs={'language':self.language})
+
     def get_update_url(self):
         return reverse('snippets_snippet_update',kwargs={'slug':self.slug})
 

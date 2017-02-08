@@ -13,7 +13,7 @@
     </h3>
 <p>created at <time datetime="{{ snippet.create_date|date:'c' }}">
     {{ snippet.create_date|date:'Y. b. d. G:i:s' }}</time><br>
-    in <b>{{ snippet.language }}</b>
+    in <a href="{{ snippet.get_category_url }}"><b>{{ snippet.language }}</b></a>
     by <i>{{ snippet.author }}</i></p>
 <ul>
     <li><a href="{{ snippet.get_update_url }}">Edit this snippet</a></li>

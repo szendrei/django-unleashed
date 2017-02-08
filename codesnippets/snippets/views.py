@@ -13,6 +13,12 @@ def snippet_list(request):
     return render(request, 'snippets/snippet_list.html',
                   {'snippet_list':Snippet.objects.all()})
 
+def snippet_list_category(request, language):
+    return render(request, 'snippets/snippet_list_category.html',
+                  {'snippet_category_list':
+                   Snippet.objects.filter(language__iexact=language),
+                   'language': language})
+
 def snippet_detail(request, slug):
     snippet = get_object_or_404(Snippet, slug__iexact=slug)
     return render(request, 'snippets/snippet_detail.html',

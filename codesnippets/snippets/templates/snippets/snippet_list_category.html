@@ -1,0 +1,17 @@
+{% extends parent_template|default:"snippets/snippets_base.html" %}
+
+{% block title %}
+{{ block.super }} - {{ language|title }} snippets
+{% endblock %}
+
+{% block content %}
+<ul>
+    {% for snippet in snippet_category_list %}
+    <li><a href="{{ snippet.get_absolulte_url }}">{{ snippet }}</a></li>
+    <ul>
+	<li><a href="{{ snippet.get_update_url }}">Edit snippet</a></li>
+	<li><a href="{{ snippet.get_delete_url }}">Delete snippet</a></li>
+    </ul>
+    {% endfor %}
+</ul>
+{% endblock %}
