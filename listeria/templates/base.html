@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta chartset="UTF-8">
+	<title>{% block title %}List Area{% endblock %}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lt IE 9]>
+	     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+	<style>.container { display: flex; }
+	 aside { flex: 1; }
+	 main { flex: 3; }
+	</style>
+    </head>
+    <body>
+	    <header>
+		<h1><a href="{% url 'lists_index_view' %}">
+		    List Area website</a></h1>
+		<p class="description">The sickest listing website</p>
+	    </header>
+	    <div class="container">
+	    <aside>
+		<nav>
+		    <ul>
+			{% block nav_list %}
+			<li><a href="{% url 'lists_list_list' %}">Lists</a></li>
+			{% endblock %}
+			{% block create_list %}
+			<li><a href="{% url 'lists_list_create' %}">
+			    Create new list</a></li>
+			{% endblock %}
+		    </ul>
+		</nav>
+	    </aside>
+	    <main>
+		{% block content %}
+		Default content
+		{% endblock %}
+	    </main>
+	</div>
+	<footer>
+	    <p>&copy; 2017 Dóra Szendrei</p>
+	</footer>
+    </body>
+</html>

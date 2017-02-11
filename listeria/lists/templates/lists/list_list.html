@@ -1,0 +1,17 @@
+{% extends parent_template|default:"lists/base_list.html" %}
+
+{% block title %}{{ block.super }} - Lists{% endblock %}
+
+{% block nav_lost %}{% endblock %}
+
+{% block content %}
+<p>Check all the lists. Click on the one you're interested for the details.</p>
+<ul>
+    {% for list in lists %}
+    <li><a href="{{ list.get_absolute_url }}">{{ list.title|title }}</a></li>
+    {% empty %}
+    <li><em>No lists.</em> Try <a href="{% url 'lists_list_list' %}">
+	create</a> some.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

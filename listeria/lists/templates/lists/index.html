@@ -1,0 +1,18 @@
+{% extends parent_template|default:"lists/base_list.html" %}
+
+{% block content %}
+<p>Check out my newest list website! Create lists and populate them with items
+all you want! There is no limit: neither on the number of the items, nor on the
+character of the text. Just write the sickest lists you can imagine. And you
+    know what? It's totally free!</p>
+<p>Here are the five most recent list:</p>
+<ul>
+    {% for list in lists %}
+    <li><a href="{{ list.get_absolute_url }}">{{ list.title|title }}
+    </a> created on <time datetime="{{ list.pub_date|date:'Y-m-d'">
+	    {{ list.pub_date|date:"'y. b. d." }}</time></li>
+    {% empty %}
+    <li><em>The are no lists yet!</em> Wanna <a href="">create</a> a new?</li>
+    {% endfor %}
+</ul>
+{% endblock %}

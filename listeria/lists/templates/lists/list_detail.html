@@ -1,0 +1,18 @@
+{% extends parent_template|default:"lists/base_list.html" %}
+
+{% block title %}{{ block.super }} - {{ list_item.title|title }}{% endblock %}
+
+{% block content %}
+<h2>{{ list_item.title|title }}</h2>
+<p>List created on <time datetime="{{ list_item.pub_date|date:'Y-m-d' }}">
+    {{ list_item.pub_date|date:"'y. b. d." }}</time></p>
+{% if list_item.item_set.all %}
+<ul>
+    {% for item in list_item.item_set.all %}
+    <li>{{ item.text|linebreaks }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No items: start the list by creating some below!</p>
+{% endif %}
+{% endblock %}
