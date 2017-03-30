@@ -29,4 +29,7 @@ class Item(models.Model):
         unique_together = ('ordering', 'parent_list')
 
     def __str__(self):
-        return "{} in {}".format(self.text, parent_list)
+        return "{}".format(self.text)
+
+    def get_absolute_url(self):
+        return self.parent_list.get_absolte_url()

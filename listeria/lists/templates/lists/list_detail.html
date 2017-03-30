@@ -9,10 +9,12 @@
 {% if list_item.item_set.all %}
 <ul>
     {% for item in list_item.item_set.all %}
-    <li>{{ item.text|linebreaks }}</li>
+    <li>{{ item.ordering }}: {{ item.text|linebreaks }}</li>
     {% endfor %}
 </ul>
 {% else %}
 <p>No items: start the list by creating some below!</p>
 {% endif %}
+<p><a href="">New item</a></p>
 {% endblock %}
+

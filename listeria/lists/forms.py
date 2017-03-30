@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
-from .models import List
+from .models import Item, List
 
 class ListForm(forms.ModelForm):
     class Meta:
@@ -19,3 +19,15 @@ class ListForm(forms.ModelForm):
         if not new_slug:
             new_slug = slugify(self.cleaned_data['title'])
         return new_slug
+
+
+class ItemCreateForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        exclude = ['ordering']
+
+
+class ItemUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = "__all__"
