@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import  include, url
 from django.contrib import admin
+from django.contrib.flatpages import urls as flatpages_urls
 
 from organizer.urls import (newslink as newslink_urls,
                             startup as startup_urls,
@@ -31,4 +32,5 @@ urlpatterns = [
     url(r'^newslink/', include(newslink_urls)),
     url(r'^startup/', include(startup_urls)),
     url(r'^tags/', include(tag_urls)),
+    url(r'^', include(flatpages_urls)),
 ]
