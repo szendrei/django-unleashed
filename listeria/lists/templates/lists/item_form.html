@@ -1,0 +1,13 @@
+{% extends parent_template|default:"lists/base_list.html" %}
+
+{% block title %}{{ block.super }} - Create new item{% endblock %}
+
+{% block content %}
+<div>
+    <form action="{% url 'lists_item_create' %}" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Create new item</button>
+    </form>
+</div>
+{% endblock %}
