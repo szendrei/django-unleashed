@@ -6,34 +6,52 @@
 
 {% block content %}
 <article>
-    <header>
-	<h2>{{ post.title|title }}</h2>
-	<p>Written on <time datetime="{{ post.pub_date|date:'Y-m-d' }}">
-	    {{ post.pub_date|date:"l, F jS, Y" }}</time></p>
-    </header>
-    {{ post.text|linebreaks }}
+    <div class="row">
+	<div class="offset-by-two eight columns">
+	    <header>
+		<ul class="inline">
+		    <li><a href="{{ post.get_update_url }}"
+			class="button">Edit Post</a></li>
+		    <li><a href="{{ post.get_delete_url }}"
+			class="button">Delete Post</a></li>
+		</ul>
+		<h2>{{ post.title|title }}</h2>
+		<p>Written on <time datetime="{{ post.pub_date|date:'Y-m-d' }}">
+		    {{ post.pub_date|date:"l, F jS, Y" }}</time></p>
+	    </header>
+	    {{ post.text|linebreaks }}
+	</div>
+    </div>
     {% if post.startups.all or post.tags.all %}
-    <footer>
-	<ul>
-	    <li><a href="{{ post.get_update_url }}">Edit Post</a></li>
-	    <li><a href="{{ post.get_delete_url }}">Delete Post</a></li>
-	</ul>
+    <footer class="row">
 	{% if post.startups.all %}
-	<section>
+	  {% if post.tags.all %}
+	    <section class="meta offset-by-two one-thid column">
+	  {% else %}
+	    <section class="meta offset-by-two two-thirds column">
+	  {% endif %}
 	    <h3>Startup{{ post.startups.count|pluralize }}</h3>
 	    <ul>
 		{% for startup in post.startups.all %}
-		<li><a href="{{ startup.get_absolute_url }}">{{ startup.name }}</a></li>
+		<li>
+		    <a href="{{ startup.get_absolute_url }}">{{ startup.name }}
+		    </a></li>
 		{% endfor %}
 	    </ul>
 	</section>
 	{% endif %}
 	{% if post.tags.all %}
-	<section>
+	  {% if post.startups.all %}
+	    <section class="meta offset-by-two one-third column">
+	  {% else %}
+	    <section class="meta offset-by-two two-thord column">
+	  {% endif %}
 	    <h3>Tag{{ post.tags.count|pluralize }}</h3>
 	    <ul>
 		{% for tag in post.tags.all %}
-		<li><a href="{{ tag.get_absolute_url }}">{{ tag.name|title }}</a></li>
+		<li>
+		    <a href="{{ tag.get_absolute_url }}">{{ tag.name|title }}
+		    </a></li>
 		{% endfor %}
 	    </ul>
 	</section>

@@ -4,11 +4,13 @@
 {{ block.super }} - {{ tag.name|title }}
 {% endblock %}
 
-{% block content %}
+{% block org_content %}
 <h2>{{ tag.name|title }}</h2>
-<ul>
-    <li><a href="{{ tag.get_update_url }}">Edit Tag</a></li>
-    <li><a href="{{ tag.get_delete_url }}">Delete Tag</a></li>
+<ul class="inline">
+    <li><a href="{{ tag.get_update_url }}"
+	   class="button">Edit Tag</a></li>
+    <li><a href="{{ tag.get_delete_url }}"
+	   class="button">Delete Tag</a></li>
 </ul>
 {% if tag.startup_set.all %}
 <section>

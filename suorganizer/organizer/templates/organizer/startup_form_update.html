@@ -3,12 +3,13 @@
 {% block title %}{{ block.super }} - Update Startup{% endblock %}
 
 {% block content %}
-<div>
-    <div>
-	<form action="{{ startup.get_update_url }}" method="post">
+<div class="row">
+    <div class="offset-by-two eight columns">
+	<form action="{{ tag.get_update_url }}" method="post">
 	    {% csrf_token %}
 	    {{ form.as_p }}
-	    <button type="submit">Update Startup</button>
+	    <button type="submit"
+		    class="button-primary">Update Startup</button>
 	</form>
     </div>
 </div>

@@ -3,12 +3,13 @@
 {% block title %}{{ block.super }} - Update Article Link{% endblock %}
 
 {% block content %}
-<div>
-    <div>
+<div class="row">
+    <div class="offset-by-two eight columns">
 	<form action="{{ newslink.get_update_url }}" method="post">
 	    {% csrf_token %}
 	    {{ form.as_p }}
-	    <button type="submit">Update Article Link</button>
+	    <button type="submit" 
+		    class="button-primary">Update Article Link</button>
 	</form>
     </div>
 </div>

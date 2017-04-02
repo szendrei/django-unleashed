@@ -3,8 +3,8 @@
 {% block title %}{{ block.super }} - Update Blog Post{% endblock %}
 
 {% block content %}
-<div>
-    <div>
+<div class="row">
+    <div class="offset-by-two eight columns">
 	<form action="{{ post.get_update_url }}" method="post">
 	    {% csrf_token %}
 	    {{ form.as_p }}

@@ -1,5 +1,4 @@
-{% load flatpages %}
-{% get_flatpages as flatpages %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,14 +10,21 @@
 	<!--[if lt IE 9]>
 	     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
+	<link rel="stylesheet" type="text/css" 
+	      href="{% static 'site/normalize.css' %}">
+	<link rel="stylesheet" type="text/css" 
+	      href="{% static 'site/skeleton.css' %}">
+	<link rel="stylesheet" type="text/css" 
+	      href="{% static 'site/style.css' %}">
+	{% block head %}{% endblock %}
     </head>
 
     <body>
 
 	{% if messages %}
-	<div>
-	    <div>
-		<ul>
+	<div class="row">
+	    <div class="twelve columns">
+		<ul class="messages">
 		    {% for message in messages %}
 		    {% if message.tags %}
 		    <li class="{{ message.tags }}">
@@ -38,15 +44,15 @@
 		<li><a href="{% url 'organizer_startup_list' %}">Startups</a></li>
 		<li><a href="{% url 'organizer_tag_list' %}">Tags</a></li>
 		<li><a href="{% url 'contact' %}">Contact</a></li>
-		{% for page in flatpages %}
-		<li><a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
-		{% endfor %}
+		<li><a href="{% url 'about_site' %}">About</a></li>
 	    </ul>
 	</nav>
 
-	<div><!-- container -->
-	    <header>
-		<h1>Startup Organizer</h1>
+	<div class="container"><!-- container -->
+	    <header class="row">
+		<div class="offset-by-one ten columns">
+		<h1 class="logo">Startup Organizer</h1>
+		</div>
 	    </header>
 	    <main>
 		{% block content %}

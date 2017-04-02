@@ -3,12 +3,14 @@
 {% block title %}{{ block.super }} - Delete Startup{% endblock %}
 
 {% block content %}
-<div>
-    <div>
-	<form action="{{ startup.get_delete_url }}" method="post">
+<div class="row">
+    <div class="offset-by-two eight columns">
+	<form action="{{ tag.get_update_url }}" method="post">
 	    {% csrf_token %}
+	    {{ form.as_p }}
 	    <p>Are you sure you want to delete startup {{ startup.name }}?</p>
-	    <a href="{{ startup.get_absolute_url }}">Cancel</a>
+	    <a href="{{ startup.get_absolute_url }}"
+	       class="button button-primary">Cancel</a>
 	    <button type="submit">Delete Startup</button>
 	</form>
     </div>

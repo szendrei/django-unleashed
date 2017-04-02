@@ -3,12 +3,12 @@
 {% block title %}{{ block.super }} - Link News Article to Startup{% endblock %}
 
 {% block content %}
-<div>
-    <div>
+<div class="row">
+    <div class="offset-by-two eight columns">
 	<form action="{% url 'organizer_newslink_create' %}" method="post" >
 	    {% csrf_token %}
 	    {{ form.as_p }}
-	    <button type="submit">Link Article</button>
+	    <button type="submit" class="button-primary">Link Article</button>
 	</form>
     </div>
 </div>

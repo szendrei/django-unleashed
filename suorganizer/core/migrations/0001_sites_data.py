@@ -12,12 +12,12 @@ def add_site_data(apps, schema_editor):
     site_id = getattr(settings, 'SITE_ID', 1)
     if Site.objects.exists():
         current_site = Site.objects.get(pk=site_id)
-        current_site.domain = new_domian
+        current_site.domain = new_domain
         current_site.name = new_name
         current_site.save()
     else:
         current_site = Site(pk=site_id,
-                            domian=new_domain,
+                            domain=new_domain,
                             name=new_name)
         current_site.save()
 

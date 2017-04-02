@@ -3,12 +3,13 @@
 {% block title %}{{ block.super }} - Delete Article Link{% endblock %}
 
 {% block content %}
-<div>
-    <div>
+<div class="row">
+    <div class="offset-by-two eight columns">
 	<form action="{{ newslink.get_delete_url }}" method="post">
 	    {% csrf_token %}
 	    <p>Are you sure you want to delete link to article {{ newslink.title }}?</p>
-	    <a href="{{ tag.get_absolute_url }}">Cancel</a>
+	    <a href="{{ newslink.get_absolute_url }}"
+	       class="button button-primary">Cancel</a>
 	    <button type="submit">Delete Article Link</button>
 	</form>
     </div>

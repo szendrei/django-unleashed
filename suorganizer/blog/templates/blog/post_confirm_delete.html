@@ -3,12 +3,13 @@
 {% block title %}{{ block.super }} - Delete Post{% endblock %}
 
 {% block content %}
-<div>
-    <div>
+<div class="row">
+    <div class="offset-by-two eight columns">
 	<form action="{{ post.get_delete_url }}" method="post">
 	    {% csrf_token %}
 	    <p>Are you sure you want to delete post "{{ post.title }}"?</p>
-	    <a href="{{ post.get_absolute_url }}">Cancel</a>
+	    <a href="{{ post.get_absolute_url }}"
+	       class="button button-primary">Cancel</a>
 	    <button type="submit">Delete Post</button>
 	</form>
     </div>

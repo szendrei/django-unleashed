@@ -3,8 +3,7 @@
 {% block title %}{{ block.super }} - Create Blog Post{% endblock %}
 
 {% block content %}
-<div>
-    <div>
+<div">
 	<form action="{% url 'blog_post_create' %}" method="post" >
 	    {% csrf_token %}
 	    {{ form.as_p }}
