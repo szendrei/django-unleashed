@@ -1,6 +1,5 @@
-from django.views.generic import View
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import (ArchiveIndexView, CreateView, 
+from django.views.generic import (ArchiveIndexView, CreateView, DateDetailView,
                                   MonthArchiveView, View, YearArchiveView)
 
 from .models import Post
@@ -36,13 +35,19 @@ class PostDelete(View):
         post.delete()
         return redirect('blog_post_list')
 
-def post_detail(request, year, month, slug):
-    post = get_object_or_404(Post,
-                             pub_date__year=year,
-                             pub_date__month=month,
-                             slug=slug)
-    return render(request, 'blog/post_detail.html', {'post': post})
 
+class PostDetail(DateDetailView):
+    date_field = 'pub_date'
+    model = Post
+    month_format = '%m'
+
+    def get_day(self):
+        return '1'
+
+    def _make_single_date_lookup(self, date):
+        date_field = self.get_date_field()
+        return {date_field + '__year':date.year,
+                date_field + '__month':date.month,}
 
 class PostList(ArchiveIndexView):
     allow_empty = True
