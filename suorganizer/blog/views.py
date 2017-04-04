@@ -1,7 +1,9 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import (ArchiveIndexView, CreateView, DateDetailView,
-                                  MonthArchiveView, View, YearArchiveView)
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import (ArchiveIndexView, CreateView, DetailView,
+                                  DeleteView, MonthArchiveView, YearArchiveView)
 
+from core.utils import UpdateView
+from .utils import DateObjectMixin
 from .models import Post
 from .forms import PostForm
 
@@ -22,32 +24,18 @@ class PostCreate(CreateView):
     model = Post
 
 
-class PostDelete(View):
-    
-    def get(self, request, year, month, slug):
-        post = get_object_or_404(Post, pub_date__year=year,
-                                 pub_date__month=month, slug__iexact=slug)
-        return render(request, 'blog/post_confirm_delete.html', {'post': post})
-
-    def post(self, request, year, month, slug):
-        post = get_object_or_404(Post, pub_date__year=year,
-                                 pub_date__month=month, slug__iexact=slug)
-        post.delete()
-        return redirect('blog_post_list')
-
-
-class PostDetail(DateDetailView):
+class PostDelete(DateObjectMixin, DeleteView):
+    allow_future = True
     date_field = 'pub_date'
     model = Post
-    month_format = '%m'
+    success_url = reverse_lazy('blog_post_list')
 
-    def get_day(self):
-        return '1'
 
-    def _make_single_date_lookup(self, date):
-        date_field = self.get_date_field()
-        return {date_field + '__year':date.year,
-                date_field + '__month':date.month,}
+class PostDetail(DateObjectMixin, DetailView):
+    allow_future = True
+    date_field = 'pub_date'
+    model = Post
+
 
 class PostList(ArchiveIndexView):
     allow_empty = True
@@ -60,26 +48,8 @@ class PostList(ArchiveIndexView):
     template_name = 'blog/post_list.html'
 
 
-class PostUpdate(View):
+class PostUpdate(DateObjectMixin, UpdateView):
+    allow_future = True
+    date_field = 'pub_date'
     form_class = PostForm
     model = Post
-    template_name = 'blog/post_form_update.html'
-
-    def get_object(self, year, month, slug):
-        return get_object_or_404(self.model, pub_date__year=year,
-                                 pub_date__month=month, slug=slug)
-
-    def get(self, request, year, month, slug):
-        post = self.get_object(year, month, slug)
-        context = {'form': self.form_class(instance=post), 'post': post,}
-        return render(request, self.template_name, context)
-
-    def post(self, request, year, month, slug):
-        post = self.get_object(year, month, slug)
-        bound_form = self.form_class(request.POST, instance=post)
-        if bound_form.is_valid():
-            new_post = bound_form.save()
-            return redirect(new_post)
-        else:
-            context = {'form': bound_form, 'post': post, }
-            return render(request, self.template_name, context)
