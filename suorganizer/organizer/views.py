@@ -6,24 +6,38 @@ from django.views.generic import (CreateView, DeleteView, DetailView,
 from core.utils import UpdateView
 from .forms import NewsLinkForm, StartupForm, TagForm
 from .models import NewsLink, Startup, Tag
-from .utils import PageLinksMixin
+from .utils import (NewsLinkGetObjectMixin, 
+                    PageLinksMixin, StartupContextMixin)
 
 
-class NewsLinkCreate(CreateView):
+class NewsLinkCreate(NewsLinkGetObjectMixin, StartupContextMixin, 
+                     CreateView):
     form_class = NewsLinkForm
     model = NewsLink
 
+    def get_initial(self):
+        startup_slug = self.kwargs.get(self.startup_slug_url_kwarg)
+        self.startup = get_object_or_404(Startup, slug__iexact=startup_slug)
+        initial = {
+            self.startup_context_object_name: self.startup,
+        }
+        initial.update(self.initial)
+        return initial
 
-class NewsLinkDelete(DeleteView):
+
+class NewsLinkDelete(NewsLinkGetObjectMixin, StartupContextMixin, DeleteView):
     model = NewsLink
+    slug_url_kwarg = 'newslink_slug'
 
     def get_success_url(self):
         return self.object.startup.get_absolute_url()
 
 
-class NewsLinkUpdate(UpdateView):
+class NewsLinkUpdate(NewsLinkGetObjectMixin, StartupContextMixin, 
+                     UpdateView):
     form_class = NewsLinkForm
     model = NewsLink
+    slug_url_kwarg = 'newslink_slug'
 
 
 class StartupCreate(CreateView):
