@@ -189,5 +189,5 @@ SITE_ID = 1
 from django.core.urlresolvers import reverse_lazy
 
 LOGIN_REDIRECT_URL = reverse_lazy('blog_post_list')
-LOGIN_URL = reverse_lazy('dj-auth:logn')
+LOGIN_URL = reverse_lazy('dj-auth:login')
 LOGOUT_URL = reverse_lazy('dj-auth:logout')
