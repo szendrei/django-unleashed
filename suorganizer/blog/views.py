@@ -3,6 +3,9 @@ from django.views.generic import (ArchiveIndexView, CreateView, DetailView,
                                   DeleteView, MonthArchiveView, YearArchiveView)
 
 from core.utils import UpdateView
+from user.decorators import require_authenticated_permission
+
+
 from .utils import DateObjectMixin
 from .models import Post
 from .forms import PostForm
@@ -19,11 +22,14 @@ class PostArchiveYear(YearArchiveView):
     date_field = 'pub_date'
     make_object_list = True
 
+
+@require_authenticated_permission('blog.add_post')
 class PostCreate(CreateView):
     form_class = PostForm
     model = Post
 
 
+@require_authenticated_permission('blog.delete_post')
 class PostDelete(DateObjectMixin, DeleteView):
     allow_future = True
     date_field = 'pub_date'
@@ -48,6 +54,7 @@ class PostList(ArchiveIndexView):
     template_name = 'blog/post_list.html'
 
 
+@require_authenticated_permission('blog.change_post')
 class PostUpdate(DateObjectMixin, UpdateView):
     allow_future = True
     date_field = 'pub_date'
