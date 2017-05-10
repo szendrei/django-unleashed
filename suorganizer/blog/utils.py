@@ -6,6 +6,12 @@ from django.views.generic.dates import (DateMixin, MonthMixin as BaseMonthMixin,
 from .models import Post
 
 
+class AllowFuturePermissionMixin():
+
+    def get_allow_future(self):
+        return self.request.user.has_perm('blog.view_future_post')
+
+
 class MonthMixin(BaseMonthMixin):
     month_format = '%m'
     month_query_kwarg = 'month'
@@ -14,8 +20,8 @@ class MonthMixin(BaseMonthMixin):
     def get_month(self):
         month = self.month
         if month is None:
-            month = self.kwrags.get(self.month_url_kwarg,
-                                    self.REQUEST.GET.get(
+            month = self.kwargs.get(self.month_url_kwarg,
+                                    self.request.GET.get(
                                         self.month_query_kwarg))
         if month is None:
             raise Http404("No month specified")
@@ -36,7 +42,8 @@ class YearMixin(BaseYearMixin):
         return year
 
 
-class DateObjectMixin(YearMixin, MonthMixin, DateMixin):
+class DateObjectMixin(AllowFuturePermissionMixin,
+                      YearMixin, MonthMixin, DateMixin):
 
     def get_object(self, queryset=None):
         year = self.get_year()
