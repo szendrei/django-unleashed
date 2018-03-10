@@ -1,7 +1,10 @@
 import logging
 import traceback
 from logging import CRITICAL, ERROR
-from django.contrib.auth.token import token_generator
+from smtplib import SMTPException
+from django.conf import settings
+from django.contrib.auth.tokens import \
+    default_token_generator as token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.core.mail import BadHeaderError, send_mail
@@ -49,9 +52,9 @@ class ActivationMailFormMixin:
         return render_to_string(email_template_name, context)
 
     def get_subject(self, **kwargs):
-        subject_template_name = kwrags.get('subject_template_name')
+        subject_template_name = kwargs.get('subject_template_name')
         context = kwargs.get('context')
-        subject = render_to_sting(subject_template_name, context)
+        subject = render_to_string(subject_template_name, context)
         # subject must not contain newlines!
         subject = ''.join(subject.splitlines())
         return subject
@@ -65,7 +68,7 @@ class ActivationMailFormMixin:
         else:
             protocol = 'http'
         token = token_generator.make_token(user)
-        uid = urlsfae_base64_encode(force_bytes(user.pk))
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
         context.update({'domain': current_site.domain,
                         'protocol': protocol,
                         'site_name': current_site.name,
@@ -78,7 +81,8 @@ class ActivationMailFormMixin:
         kwargs['context'] = self.get_context_data(request, user)
         mail_kwargs = {"subject": self.get_subject(**kwargs),
                        "message": self.get_message(**kwargs),
-                       "from_email": (settings.DEFAULT_FROM_EMAIL),
+                       "from_email": (
+                           settings.DEFAULT_FROM_EMAIL),
                        "recipient_list": [user.email],}
         try:
             #number_sent will be 0 or 1
