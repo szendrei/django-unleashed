@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
+from .views import DisableAccount
 
 password_urls = [
     url(r'^change/$', auth_views.password_change,
@@ -36,6 +37,7 @@ password_urls = [
 urlpatterns = [
     url(r'^$', RedirectView.as_view(pattern_name='dj-auth:login',
                                     permanent=False)),
+    url(r'^disable/$', DisableAccount.as_view(), name='disable'),
     url(r'^login/$', auth_views.login, {'template_name': 'user/login.html'},
         name='login'),
     url(r'^logout/$', auth_views.logout, 
