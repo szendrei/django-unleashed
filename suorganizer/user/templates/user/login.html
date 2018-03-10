@@ -7,5 +7,11 @@
     <div class="offset-by-two five columns">
 	{% include "user/login_form.html" %}
     </div>
+    <div class="three columns">
+	<ul class="task-list">
+	    <li><a href="{% url 'dj-auth:pw_reset_start' %}">
+		Forgotten Password?</a></li>
+	</ul>
+    </div>
 </div>
 {% endblock %}
